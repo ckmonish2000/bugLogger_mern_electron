@@ -33,4 +33,16 @@ route.post("/postIssue", (req, res) => {
     .catch((e) => res.json({ error: e }));
 });
 
+route.delete("/deletePost", (req, res) => {
+  var id = req.query.id;
+  var dta = model.findOneAndDelete({
+    _id: id,
+  });
+  dta
+    .then((val) => {
+      res.json(val);
+    })
+    .catch((e) => res.json(e));
+});
+
 module.exports = route;
