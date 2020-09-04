@@ -35,14 +35,38 @@ route.post("/postIssue", (req, res) => {
 
 route.delete("/deletePost", (req, res) => {
   var id = req.query.id;
-  var dta = model.findOneAndDelete({
-    _id: id,
-  });
-  dta
+  model
+    .findOneAndDelete({
+      _id: id,
+    })
     .then((val) => {
       res.json(val);
     })
-    .catch((e) => res.json(e));
+    .catch((e) => {
+      res.json(e);
+    });
+});
+
+route.patch("/update", (req, res) => {
+  var id = req.query.id;
+  var title = req.query.title;
+  var level = req.query.level;
+  model
+    .findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        title: title,
+        level: level,
+      }
+    )
+    .then((val) => {
+      res.json(val);
+    })
+    .catch((e) => {
+      res.json(e);
+    });
 });
 
 module.exports = route;
